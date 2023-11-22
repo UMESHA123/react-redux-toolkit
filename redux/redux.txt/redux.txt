@@ -1,0 +1,190 @@
+redux is a predictable state container for javascript app.
+
+it is for javascript.
+it state container. 
+and it is predictable.
+
+1 ->redux is for javascript app 
+we can use with react angular vue or even with vanila javascript.
+redux is a library for javascript app 
+
+2--> state container.
+redux stores the state of the out app.
+
+for example login form it has state like 
+state = {
+    username : "",
+    password : "",
+    submitting : false,//flag 
+}
+
+or user list component 
+state = {
+    users : []//users list of array 
+}
+
+or even more larget application state like 
+user = {
+    isUserLogin: true,
+    username : 'umesha',
+    userProfileUrl : ".....",
+    password : '....',
+    ...
+    ..
+    ..
+}
+
+3 --> redux is predictable.
+
+for example: the state of the application can change.
+like todo list app:
+item(pending) --> item(completed)
+here item is teh state it containes pedding state.
+if user complete the task then state of teh item is changed to complite.
+here the state changes from pending to complited.
+
+so in redux a pattern is enfored to ensure all state transition and tracted.
+
+the changes to our application is predictable.
+
+
+why redux:
+------- 
+if we want to manage the global state of our application in predictable way redux 
+can helps.
+the pattern and tools provided by the redux makes it easier for understanding 
+when where why the state in our application is being updated and how our logic will 
+behave when this changes occur.
+
+redux toolkit.
+---------------
+redux toolkit is official opiniated batteries included toolset for eficient 
+redux development.
+
+why redux toolskit:
+redux is a great tools but it doesn;t have some feactures like 
+1 configuring a redux in an app is complicated.
+2 in addition to redux  a lot of pakages have to be installed to get to do 
+somthing useful.
+redux requires to much of boilerplate code that means repeting the same pattern 
+of code many times. 
+
+so redux toolkit is abstraction over the redux so it hides the difficult parts.
+
+
+
+redux in react:
+react-redux
+react is  ui library.
+redux is a state management library 
+both are independly of each other .
+
+the directly using the redux in the react is dit compusing also dificalt 
+to simply fy that we have a react-redux library.
+
+so react-redux library is a official redux ui binding library for react.
+
+
+
+steps to create redux:
+1 ->install node 
+2 -> create folder and open it in the cs cod editer.
+3 -> open terminal npm init --yes //for install the json file
+4 -> install redux npm install redux.//for install redux.
+
+
+three core concetp:
+--------------------
+real word example: cake shop
+    entities 
+shop : stores cake.
+shopkeeper : behined the couter.
+customer : at the store entrance.
+
+    activity
+customer - order cake.
+shopkeeper - box a cake from  the shelf 
+
+
+1 : store  -> holds the state of the application.
+2 : action -> describes what happened 
+3 : reducer -> ties the store and action together.
+
+
+
+3 principle:
+first principle:
+the global state of our application is stored as an object inside a single store.
+and this object is managed by the redux.
+
+{
+    numOfCakes : 10,
+}
+
+second principle : 
+the only way to change the state is to dispatch an action  
+we are not allowed to directly update the state of our application.
+
+{
+    type : 'CAKE_ORDERED'
+}
+
+so state is readonly and only way to change the state of out application 
+by dispatching the action.
+
+third principle:
+to specify how the store tree is updated based on actions so we need to write a 
+reducer.
+
+reducer -> (preState,action) => newstate.
+the reducer will take the prev state and the action as the input 
+and reducer take the copy of the prevstate instead of directly modifying the 
+state. and return the new modifyed state.
+
+const reducer = (state=initalstate, action) => {
+    switch(action.type){
+        case 'BUY_CAKE':
+        return {
+            numOfCakes : state.numOfCakes - 1,
+        }
+        default:
+            return state;
+    }
+}
+
+    subscribed                      dispatch()
+       -------->javascript-app ---------------
+      |             |                         |
+    redux store <---  not possible            |
+      (state)                              action 
+      |                                       |
+      |                                       |
+       -----------------reducer----------------
+
+here in the above the diagram show we can'nt able to direct change the state 
+of our application 
+if we want to change the state of our application first we ned to dispatch an action
+once the action is dispacthed the reducer willl handles that action and update the 
+current state 
+as soon as state is updated is passed on to the javascript app because the 
+application is subscribed to the store.
+
+
+action:
+the action are the only way our application can intract with the store.
+it carrys some information from out app to the redux store.
+it has a type property that disscribes somthing that happed in the application.
+the type property is defined in string const.(redux documents measion.)
+
+const CAKE_ORDERED = "CAKE_ORDERED"
+
+
+redux store:
+one store for entoer application.
+
+responsibilitys:
+holds the application state
+allows acces to a state by getState()
+allows state to be updated by dispatch(action)
+register lisnor via subscribe(listener)
+unsubscribe the lister via  the function returned by subscribe(listener) 
